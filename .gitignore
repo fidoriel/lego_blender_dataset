@@ -1,0 +1,7 @@
+.venv
+venv
+*.dat
+*.zip
+ldraw
+io_scene_importldraw
+*.png
