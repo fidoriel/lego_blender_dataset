@@ -10,7 +10,7 @@ import mathutils
 print(f"Python Version: {platform.python_version()}")
 
 LDRAW_ADDON_NAME = "io_scene_importldraw"
-BRICK = "3001"
+BRICK = "33085"
 
 class SegmentationCategories(Enum):
     BACKGROUND = 0
@@ -18,7 +18,7 @@ class SegmentationCategories(Enum):
 
 class Settings:
     ldraw_path: Path = Path("./ldraw/")
-    plugin_installer: Path = Path("./importldraw1.2.1.zip")
+    plugin_installer: Path = Path("./io_scene_importldraw.zip") # Path("./importldraw1.2.1.zip")
     render_resolution: int = 128
     output_path: Path = Path("./render.png")
 
@@ -63,6 +63,7 @@ instancestuds = False
 resolvenormals = guess
 positioncamera = True
 cameraborderpercentage = 5.0
+defaultcolour = 2
 """
         self.plugin_ini.parent.mkdir(parents=True, exist_ok=True)
         print("place ", self.plugin_ini)
@@ -112,11 +113,19 @@ cameraborderpercentage = 5.0
         ground.replace_materials(mat)
         return ground
 
+    def overwrite_plugin_settings(self, color) -> None:
+        import io_scene_importldraw.loadldraw.loadldraw as ldload
+        ldload.Options.ldrawDirectory = "/home/luca/git/lego_blender/ldraw"
+        ldload.Options.useLogoStuds = True
+        ldload.Options.addGroundPlane = False
+        ldload.Options.defaultColour = 226
+
 
 settings = Settings()
 settings.load_plugin()
 settings.place_config()
 settings.enable_plugin()
+# settings.overwrite_plugin_settings("x")
 
 brick, brick_blender = settings.import_part(BRICK)
 
