@@ -5,3 +5,4 @@ venv
 ldraw
 io_scene_importldraw
 *.png
+output/
